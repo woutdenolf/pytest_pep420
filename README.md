@@ -34,7 +34,7 @@ package_dir=
 packages=find_namespace:
 ```
 
-## Pytest cannot handle this
+## Pytest cannot handle this by default
 
 This fails
 
@@ -66,4 +66,25 @@ src/mynamespace/myproject/tests/test_myproject_ns.py .                    [ 50%]
 src/myproject/tests/test_myproject.py .                                   [100%]
 
 =============================== 2 passed in 0.01s ===============================
+```
+
+## consider_namespace_packages
+
+Adding this option to `pyproject.toml` solves the issue:
+
+https://docs.pytest.org/en/stable/reference/reference.html#confval-consider_namespace_packages
+
+
+```bash
+(pybox_9S5crM) :~/tmp/pytest_pep420$ pytest -x
+======================================== test session starts =========================================
+platform linux -- Python 3.11.8, pytest-8.1.1, pluggy-1.4.0
+rootdir: /home/denolf/tmp/pytest_pep420
+configfile: pyproject.toml
+collected 2 items                                                                                    
+
+src/mynamespace/myproject/tests/test_myproject_ns.py .                                         [ 50%]
+src/myproject/tests/test_myproject.py .                                                        [100%]
+
+========================================= 2 passed in 0.01s ==========================================
 ```
